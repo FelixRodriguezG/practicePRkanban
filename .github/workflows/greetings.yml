@@ -1,0 +1,32 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: |
+          🎉 ¡Bienvenido/a al repositorio! 🎉  
+
+          Gracias por abrir tu primera issue. Nuestro equipo revisará tu reporte/prueba/sugerencia pronto.  
+          Si tienes alguna información adicional, no dudes en compartirla. 🚀  
+
+          Mientras tanto, puedes revisar nuestra documentación o las issues existentes.  
+
+          ¡Feliz contribución! 💡  
+        pr-message: |
+          🚀 ¡Gracias por tu primera Pull Request! 🚀  
+
+          Apreciamos tu contribución al proyecto. Nuestro equipo revisará tu PR lo antes posible.  
+          Asegúrate de que tu código sigue las convenciones del repositorio y que has probado los cambios antes de enviarlos.  
+
+          Si tienes alguna pregunta, no dudes en mencionarnos. ¡Sigue así! 🎯  
+
+          Bienvenido/a a la comunidad. 💪✨  
