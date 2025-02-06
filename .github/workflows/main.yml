@@ -1,0 +1,13 @@
+name: Notificar al Fusionar
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  notify-merge:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Notificar a los Colaboradores
+      run: echo "La pull request #${{ github.event.pull_request.number }} ha sido fusionada. ¡Por favor, actualiza tus forks!"
