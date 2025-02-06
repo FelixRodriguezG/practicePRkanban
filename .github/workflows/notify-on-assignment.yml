@@ -1,0 +1,17 @@
+name: Notify on Assignment
+
+on:
+  issues:
+    types: [assigned]
+
+jobs:
+  notify-assignment:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            body: "Hello @${{ github.event.assignee.login }}, you've been assigned a new task!"
+          })
