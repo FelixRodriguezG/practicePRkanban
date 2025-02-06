@@ -1,0 +1,28 @@
+name: Notify on Pull Request Review
+
+on:
+  project_card:
+    types: [moved]
+
+jobs:
+  notify-review:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check column change
+      if: ${{ github.event.project_card.column_name == 'Pull Request Review' }}
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const projectCard = github.event.project_card;
+          const assignee = projectCard.creator.login;
+
+          github.rest.issues.createComment({
+            issue_number: projectCard.content_url.split('/').pop(),
+            body: `🚨 Hola @${assignee}, tu tarea ha pasado a la columna **Revisión de Pull Requests**. Por favor, sigue los pasos:
+            
+                  1. Actualiza tu código local.
+                  2. Verifica que no haya errores.
+                  3. Crea y enlaza la Pull Request correspondiente.
+
+                 ¡Gracias por tu colaboración! 🚀`
+            });
